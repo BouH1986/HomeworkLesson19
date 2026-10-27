@@ -1,8 +1,6 @@
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -11,58 +9,58 @@ public class Main {
     public static void main(String[] args) {
         StringBuilder log = new StringBuilder();
         String parentFolder = "D:\\Programs\\Java\\Games\\";
-//        String[][] folderTree = {
-//                {"src", "main", "Main.java", "Utils.java"},
-//                {"res", "drawables", "vectors", "icons"},
-//                {"savegames"},
-//                {"temp", "temp.txt"}
-//        };
-//        StringBuilder pathTmp = new StringBuilder();
-//        for (int i = 0; i < folderTree.length; i++) {
-//            for (int j = 0; j < folderTree[i].length; j++) {
-//                try {
-//                    if (folderTree[i][j].contains(".")) {
-//                        File file = new File(parentFolder + pathTmp, folderTree[i][j]);
-//                        if (file.createNewFile()) {
-//                            log.append(java.time.LocalDateTime.now()).
-//                                    append(" - create: ").append(parentFolder).
-//                                    append(pathTmp).append(folderTree[i][j]).append("\n");
-//                        } else {
-//                            log.append(java.time.LocalDateTime.now()).
-//                                    append(" - not create: ").append(parentFolder).
-//                                    append(pathTmp).append(folderTree[i][j]).append("\n");
-//                        }
-//                    } else {
-//                        File file = new File(parentFolder + pathTmp, folderTree[i][j]);
-//                        if (file.mkdir()) {
-//                            log.append(java.time.LocalDateTime.now()).
-//                                    append(" - create: ").append(parentFolder).
-//                                    append(pathTmp).append(folderTree[i][j]).append("\n");
-//                        } else {
-//                            log.append(java.time.LocalDateTime.now()).
-//                                    append(" - not create: ").append(parentFolder).
-//                                    append(pathTmp).append(folderTree[i][j]).append("\n");
-//                        }
-//                        if (i == 1 && j > 0) {
-//                            pathTmp = new StringBuilder("res\\");
-//                        } else {
-//                            pathTmp.append(folderTree[i][j]).append("\\");
-//                        }
-//                    }
-//                } catch (Exception e) {
-//                    System.out.println(e.getMessage());
-//                }
-//            }
-//            pathTmp = new StringBuilder();
-//        }
-//        try (FileWriter writer =
-//                     new FileWriter(parentFolder + "temp\\temp.txt",
-//                             StandardCharsets.UTF_8)) {
-//            writer.write(log.toString());
-//            writer.flush();
-//        } catch (IOException ex) {
-//            System.out.println(ex.getMessage());
-//        }
+        String[][] folderTree = {
+                {"src", "main", "Main.java", "Utils.java"},
+                {"res", "drawables", "vectors", "icons"},
+                {"savegames"},
+                {"temp", "temp.txt"}
+        };
+        StringBuilder pathTmp = new StringBuilder();
+        for (int i = 0; i < folderTree.length; i++) {
+            for (int j = 0; j < folderTree[i].length; j++) {
+                try {
+                    if (folderTree[i][j].contains(".")) {
+                        File file = new File(parentFolder + pathTmp, folderTree[i][j]);
+                        if (file.createNewFile()) {
+                            log.append(java.time.LocalDateTime.now()).
+                                    append(" - create: ").append(parentFolder).
+                                    append(pathTmp).append(folderTree[i][j]).append("\n");
+                        } else {
+                            log.append(java.time.LocalDateTime.now()).
+                                    append(" - not create: ").append(parentFolder).
+                                    append(pathTmp).append(folderTree[i][j]).append("\n");
+                        }
+                    } else {
+                        File file = new File(parentFolder + pathTmp, folderTree[i][j]);
+                        if (file.mkdir()) {
+                            log.append(java.time.LocalDateTime.now()).
+                                    append(" - create: ").append(parentFolder).
+                                    append(pathTmp).append(folderTree[i][j]).append("\n");
+                        } else {
+                            log.append(java.time.LocalDateTime.now()).
+                                    append(" - not create: ").append(parentFolder).
+                                    append(pathTmp).append(folderTree[i][j]).append("\n");
+                        }
+                        if (i == 1 && j > 0) {
+                            pathTmp = new StringBuilder("res\\");
+                        } else {
+                            pathTmp.append(folderTree[i][j]).append("\\");
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+            }
+            pathTmp = new StringBuilder();
+        }
+        try (FileWriter writer =
+                     new FileWriter(parentFolder + "temp\\temp.txt",
+                             StandardCharsets.UTF_8)) {
+            writer.write(log.toString());
+            writer.flush();
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
         //------------------------------------------------------
         parentFolder += "savegames\\";
         GameProgress[] gameProgresses = {
@@ -79,11 +77,6 @@ public class Main {
 
         parentFolder += "zip.zip";
         zipFiles(parentFolder, pathList);
-
-        for (String name : pathList) {
-            File fl = new File(name);
-            fl.delete();
-        }
 
     }
 
@@ -118,6 +111,11 @@ public class Main {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+
+        for (String name : pathList) {
+            File fl = new File(name);
+            fl.delete();
         }
     }
 }
